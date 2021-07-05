@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:list_view_ogp/model/commonaly/header.dart';
 import 'package:list_view_ogp/model/article/artcle_list_panel.dart';
-import 'package:list_view_ogp/model/article/article_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:list_view_ogp/model/commonaly/get_meta_data.dart';
@@ -13,9 +12,12 @@ class ArticleLists extends StatelessWidget {
   final String screenName = '記事一覧';
 
   //url一覧暫定
-  final _url1 = 'https://fx-app.net/gakushuu-1/';
-  final _url2 = 'https://fx-app.net/gakushuu-2/';
-
+  final List<String> _URL = [
+    'https://fx-app.net/gakushuu-1/',
+    'https://fx-app.net/gakushuu-2/',
+    'https://fx-app.net/gakushuu-3/',
+    'https://fx-app.net/gakushuu-4/',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +28,13 @@ class ArticleLists extends StatelessWidget {
         body: Scrollbar(
           child: ChangeNotifierProvider(
             create: (context) => MetadataModel(),
-            child: ListView(
+            child: articleListPanel(_URL)
+                /*
+            ListView(
               children: <Widget>[
                 //この箱が記事の数だけ存在。読み取り先はfire base??
                 articleListPanel(_url1),
                 articleListPanel(_url2),
-
                 InkWell(
                   onTap: () async {
                     const url = 'https://fx-app.net/gakushuu-10/';
@@ -69,9 +72,10 @@ class ArticleLists extends StatelessWidget {
                     ),
                   ),
                 ),
-
               ],
             ),
+
+                 */
           ),
         )
     );
