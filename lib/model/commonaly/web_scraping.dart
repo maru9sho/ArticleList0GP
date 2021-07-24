@@ -22,4 +22,6 @@ class WebScrapingModel extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
 }

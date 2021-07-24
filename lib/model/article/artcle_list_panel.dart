@@ -1,40 +1,66 @@
 import 'package:flutter/material.dart';
-import 'package:list_view_ogp/model/article/article_view.dart';
 import 'package:list_view_ogp/model/commonaly/get_meta_data.dart';
+import 'package:list_view_ogp/model/commonaly/get_url_info.dart';
 import 'package:metadata_fetch/metadata_fetch.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 
-
-
-class articleListPanel extends StatelessWidget {
+class articleListPanel extends StatefulWidget {
   articleListPanel(this._URL);
   final List<String> _URL;
 
   @override
+  State<articleListPanel> createState() => _articleListPanelState();
+}
+
+class _articleListPanelState extends State<articleListPanel> {
+  List<Metadata> _UrlInfo =[];
+  @override
   Widget build(BuildContext context) {
-    //List<String> _uRL =[_url1,_url2];
-    // _URL.add(_url);
-    //final List<int> n = [];
-    final success = context.watch<MetadataModel>().fetchOgpFrom(_URL[0]);
-    Metadata _ogp = context.select((MetadataModel _model) => _model.ogp);
-    List<Metadata> _setOgp = [];
-    _setOgp.add(_ogp);
+    //var urlInfo = getUrlInfo(_URL);
+    return ListView.builder(
+          itemCount: widget._URL.length,
+          itemBuilder: (context,n){
+            return Builder(
+              builder: (context) {
+                final mydata = Provider.of<MetadataModel>(context);
+                _UrlInfo = mydata.docs;
+                final item = _UrlInfo[n];
+                return Container(
+                  height: 150,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Container(
+                            width: double.maxFinite,
+                            height: double.maxFinite,
+                            margin: const EdgeInsets.all(2),
+                            child: Text(
+                              item.title
+                                  ?? "No title",
+                              style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
+                            )
+                            //ArticleListsItem(item).getWebTitle(context)
+                          )
+                        )
+                      ]
+                  ),
+                );
+              }
+            );}
+      );
 
-    void setOgp (){
-      for (var i = 0; i < _URL.length; i++) {
-
-      }
-    }
-
+    ///ListView.builder()の機能確認
+    /*
     return ListView.builder(
         itemCount: _URL.length,
         itemBuilder: (context,n){
           return _URL[n]
               != null
               ? ListTile(
-                title: Text(_URL[n].toString()),
+                title: Text(_URL[n]),
               )
               : Container(
                 height: 0,
@@ -42,9 +68,9 @@ class articleListPanel extends StatelessWidget {
               );
           },
         );
-
-
-      /*
+     */
+    ///ListView.builderをreturn
+    /*
     return ListView.builder(
       itemCount: _URL.length,
         itemBuilder: (context,n){
@@ -101,6 +127,7 @@ class articleListPanel extends StatelessWidget {
     });
 
        */
+    ///Inkwellをreturn
     /*
     return InkWell(
           onTap: () async {
@@ -155,3 +182,7 @@ class articleListPanel extends StatelessWidget {
  */
   }
 }
+
+
+
+

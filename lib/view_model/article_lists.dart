@@ -26,58 +26,10 @@ class ArticleLists extends StatelessWidget {
     return Scaffold(
         appBar: Header(headerTitle: screenName),
         body: Scrollbar(
-          child: ChangeNotifierProvider(
-            create: (context) => MetadataModel(),
-            child: articleListPanel(_URL)
-                /*
-            ListView(
-              children: <Widget>[
-                //この箱が記事の数だけ存在。読み取り先はfire base??
-                articleListPanel(_url1),
-                articleListPanel(_url2),
-                InkWell(
-                  onTap: () async {
-                    const url = 'https://fx-app.net/gakushuu-10/';
-                    if (await canLaunch(url)) {
-                      await launch(url);
-                    } else {
-                      throw 'Could not launch $url';
-                    }
-                  },
-                  child: Ink(
-                    height: 150,
-                    color: Colors.green[200],
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Flexible(
-                            child: Container(
-                              width: double.maxFinite,
-                              height: double.maxFinite,
-                              margin: EdgeInsets.all(2),
-                              //padding: EdgeInsets.all(20),
-                              //color: Colors.blue[200],
-                              child: Text('記事タイトル'),
-                            ),
-                          ),
-                          Container(
-                            width: 150,
-                            height:double.maxFinite,
-                            margin: EdgeInsets.all(2),
-                            //padding: EdgeInsets.all(20),
-                            //color: Colors.green[200],
-                            child: Text('記事関連画像（アスペクト比1:1'),
-                          ),]
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-                 */
+            child: ChangeNotifierProvider(
+                create: (context) => MetadataModel(_URL)..fetchOgpFrom(),
+                child: articleListPanel(_URL))
           ),
-        )
     );
   }
 }
