@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:list_view_ogp/model/commonaly/get_meta_data.dart';
-import 'package:list_view_ogp/model/commonaly/get_url_info.dart';
 import 'package:metadata_fetch/metadata_fetch.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +16,6 @@ class _articleListPanelState extends State<articleListPanel> {
   List<Metadata> _UrlInfo =[];
   @override
   Widget build(BuildContext context) {
-    //var urlInfo = getUrlInfo(_URL);
     return ListView.builder(
           itemCount: widget._URL.length,
           itemBuilder: (context,n){
@@ -42,9 +40,24 @@ class _articleListPanelState extends State<articleListPanel> {
                                   ?? "No title",
                               style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
                             )
-                            //ArticleListsItem(item).getWebTitle(context)
                           )
-                        )
+                        ),
+                        Container(
+                          width: 150,
+                          height:double.maxFinite,
+                          margin: EdgeInsets.all(2),
+                          //padding: EdgeInsets.all(20),
+                          //color: Colors.green[200],
+                          child:
+                          Image.network(
+                              item.image
+                                  ?? const Text("No title",
+                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
+                              )
+
+                            //_ogp.image ?? noImagePath
+                          ),
+                        ),
                       ]
                   ),
                 );

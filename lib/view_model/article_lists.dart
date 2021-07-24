@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:list_view_ogp/model/commonaly/header.dart';
 import 'package:list_view_ogp/model/article/artcle_list_panel.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:list_view_ogp/model/commonaly/get_meta_data.dart';
 

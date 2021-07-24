@@ -10,11 +10,6 @@ Map<String, dynamic> _ogp = {
   "url":null,
 };
 
-class webInform{
-  webInform(this.title);
-  String title;
-}
-
 class MetadataModel extends ChangeNotifier {
   MetadataModel(this._url);
   final List<String> _url;
@@ -22,19 +17,14 @@ class MetadataModel extends ChangeNotifier {
   List<Metadata> docs = []; //外部から参照するためのまとめ
   List<Metadata> _docs = []; // データ格納
 
+  ///dataの格納を行う。
   Future fetchOgpFrom() async {
     for (int i = 0; i< _url.length; i++) {
-      ///
       final response = await http.get(Uri.parse(_url[i]));
       final document = MetadataFetch.responseToDocument(response);
       var ogp = MetadataParser.openGraph(document);
-      ///
-      var data = await MetadataFetch.extract(_url[i]);
-      var dataAsMap = data.toMap();
-      ///
       this._docs.add(ogp);
     }
-
     this.docs = _docs;
     notifyListeners();
   }
