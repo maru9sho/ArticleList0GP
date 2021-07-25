@@ -6,20 +6,24 @@ import 'package:provider/provider.dart';
 
 
 
-class articleView extends StatelessWidget {
-  final String screenName = 'おすすめFX会社';//headerに表示される名前
+class articleView extends StatefulWidget {
+
   articleView(this.url);
   final String url ;
 
   @override
+  State<articleView> createState() => _articleViewState();
+}
+
+class _articleViewState extends State<articleView> {
+  final String screenName = 'おすすめFX会社';
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: articleHeader(headerTitle: screenName),
-      body:  Scrollbar(
-          child: ChangeNotifierProvider(
-            create: (context) => WebScrapingModel(),
-              child: WebScraping(url)),
-      ),
+      body:  ChangeNotifierProvider(
+        create: (context) => WebScrapingModel()..scraping(widget.url),
+          child: WebScraping(widget.url)),
       /*
       bottomNavigationBar: BottomNavigationBar(
           items: const [
@@ -34,5 +38,10 @@ class articleView extends StatelessWidget {
           ],
         ),*/
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

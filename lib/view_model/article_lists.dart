@@ -16,6 +16,12 @@ class ArticleLists extends StatelessWidget {
     'https://fx-app.net/gakushuu-2/',
     'https://fx-app.net/gakushuu-3/',
     'https://fx-app.net/gakushuu-4/',
+    'https://fx-app.net/gakushuu-5/',
+    'https://fx-app.net/gakushuu-6/',
+    'https://fx-app.net/gakushuu-7/',
+    'https://fx-app.net/gakushuu-8/',
+    'https://fx-app.net/gakushuu-9/',
+    'https://fx-app.net/gakushuu-10/',
   ];
 
   @override

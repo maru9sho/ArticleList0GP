@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:list_view_ogp/model/article/article_view.dart';
 import 'package:list_view_ogp/model/commonaly/get_meta_data.dart';
 import 'package:metadata_fetch/metadata_fetch.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class articleListPanel extends StatefulWidget {
@@ -24,41 +26,52 @@ class _articleListPanelState extends State<articleListPanel> {
                 final mydata = Provider.of<MetadataModel>(context);
                 _UrlInfo = mydata.docs;
                 final item = _UrlInfo[n];
-                return Container(
-                  height: 150,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Flexible(
-                          child: Container(
-                            width: double.maxFinite,
-                            height: double.maxFinite,
-                            margin: const EdgeInsets.all(2),
-                            child: Text(
-                              item.title
-                                  ?? "No title",
-                              style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
-                            )
-                          )
-                        ),
-                        Container(
-                          width: 150,
-                          height:double.maxFinite,
-                          margin: EdgeInsets.all(2),
-                          //padding: EdgeInsets.all(20),
-                          //color: Colors.green[200],
-                          child:
-                          Image.network(
-                              item.image
-                                  ?? const Text("No title",
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
+                return InkWell(
+                  onTap: () async {
+                    String url = widget._URL[n];
+                    if (await canLaunch(url)) {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder:(context)
+                          =>  articleView(url)));
+                    } else {
+                      throw 'Could not launch $url';
+                    }},
+                  child: Container(
+                    height: 150,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Flexible(
+                            child: Container(
+                              width: double.maxFinite,
+                              height: double.maxFinite,
+                              margin: const EdgeInsets.all(2),
+                              child: Text(
+                                item.title
+                                    ?? "No title",
+                                style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
                               )
-
-                            //_ogp.image ?? noImagePath
+                            )
                           ),
-                        ),
-                      ]
+                          Container(
+                            width: 150,
+                            height:double.maxFinite,
+                            margin: EdgeInsets.all(2),
+                            //padding: EdgeInsets.all(20),
+                            //color: Colors.green[200],
+                            child:
+                            Image.network(
+                                item.image
+                                    ?? const Text("No title",
+                                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
+                                )
+
+                              //_ogp.image ?? noImagePath
+                            ),
+                          ),
+                        ]
+                    ),
                   ),
                 );
               }
